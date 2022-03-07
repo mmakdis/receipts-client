@@ -133,16 +133,21 @@ function App() {
       formData.append("file", selectedFile);
       // 10.52.8.63:8000
       // 192.168.1.208:8000
-      axios.post(`http://10.52.8.63:8000/api/receipt/upload/?enhance=${enhance}`, formData).then(function (response) {
+      axios.post(`http://10.52.8.63:8000/receipt/upload/?enhance=${enhance}`, formData).then(function (response) {
           setIsLoaded(true);
           setLoading(false);
           setOutput(response.data);
+          // uhh idk lol, it works fine so it's cool
           if ('detail' in response.data) {
             setFailure(true);
+            setIsLoaded(true);
+            setLoading(false);
             setSuccess(false);
           }
           else {
             setFailure(false);
+            setIsLoaded(true);
+            setLoading(false);
             setSuccess(true);
           }
       })
@@ -150,12 +155,15 @@ function App() {
           console.log(error);
           setFailure(true);
           setIsLoaded(true);
+          setLoading(false);
       })
       .then(function() {
+        setIsLoaded(true);
+        setLoading(false);
       });
   }
   }
-  
+
   return (
     <div className="App">
     <header className="App-header">
