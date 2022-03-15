@@ -88,6 +88,7 @@ function App() {
   const [success, setSuccess] = React.useState(false);
   const [failure, setFailure] = React.useState(false);
   const [enhance, setEnhance] = React.useState(false);
+  const [enforceSafety, setEnforceSafety] = React.useState(false);
   const timer = React.useRef();
 
   const Pretty = React.memo(({data}) => (<div><pre>{ JSON.stringify(data, null, 4) }</pre></div>));
@@ -99,6 +100,10 @@ function App() {
 
   const enhanceSwitchHandler = (event) => {
     setEnhance(!enhance);
+  }
+
+  const enforceSafetySwitchHandler = (event) => {
+    setEnforceSafety(!enforceSafety);
   }
 
   const buttonSx = {
@@ -163,7 +168,9 @@ function App() {
       });
   }
   }
-
+  console.log(`enhance - ${enhance}`);
+  console.log(`enforce safety - ${enforceSafety}`);
+  
   return (
     <div className="App">
     <header className="App-header">
@@ -195,11 +202,15 @@ function App() {
           </label>
         </Box>
         <FormControlLabel
-            control={<IOSSwitch sx={{ m: 1 }} />}
-            label="Enhance"
-            onChange={enhanceSwitchHandler}
-        />
-        <br></br>
+              control={<IOSSwitch sx={{ m: 1 }} />}
+              label="Enhance"
+              onChange={enhanceSwitchHandler}
+          />
+          <FormControlLabel
+              control={<IOSSwitch sx={{ m: 1 }} />}
+              label="Anti-Fraud"
+              onChange={enforceSafetySwitchHandler}
+          />
         <div className="App-body">
             <Box sx={{ m: 1, position: 'relative' }}>
                 <ReactJson theme="monokai" src={output}/>
